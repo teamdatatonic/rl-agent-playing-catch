@@ -1,11 +1,14 @@
 import json
 import numpy as np
+import os
 from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import SGD
 
 from agent import ExperienceReplay
 from env import Catch
+
+model_path = "../model/"
 
 # parameters
 epsilon = .1  # exploration
@@ -61,9 +64,11 @@ for e in range(epoch):
         inputs, targets = exp_replay.get_batch(model, batch_size=batch_size)
 
         loss += model.train_on_batch(inputs, targets)
-    print("Epoch {:03d}/999 | Loss {:.4f} | Win count {}".format(e, loss, win_cnt))
+    print("Epoch {:03d}/{} | Loss {:.4f} | Win count {}".format(e, epoch-1, loss, win_cnt))
 
 # Save trained model weights and architecture, this will be used by the visualization code
-model.save_weights("../model/model.h5", overwrite=True)
-with open("../model/model.h5", "w") as outfile:
+if not os.path.exists(model_path):
+    os.makedirs(model_path)
+model.save_weights(model_path + "model.h5", overwrite=True)
+with open(model_path + "model.h5", "w") as outfile:
     json.dump(model.to_json(), outfile)
