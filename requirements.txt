@@ -4,3 +4,4 @@ matplotlib==3.5.2
 tensorflow==2.9.1
 keras==2.9.0
 imageio==2.21.0
+black==19.10b0
