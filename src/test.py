@@ -60,8 +60,6 @@ for e in range(10):
         c += 1
 
 # Generate Gif
-
-
 filenames = next(walk(image_path), (None, None, []))[2]
 images = []
 for filename in filenames:
