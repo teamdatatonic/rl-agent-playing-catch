@@ -1,3 +1,6 @@
 */__pycache__
 .vscode
 *.swp
+*/model/
+*/image/
+*/gif/
