@@ -23,7 +23,7 @@ class ExperienceReplay(object):
             state_t, action_t, reward_t, state_tp1 = self.memory[idx][0]
             game_over = self.memory[idx][1]
 
-            inputs[i : i + 1] = state_t
+            inputs[i] = state_t
             # There should be no target values for actions not taken.
             # Thou shalt not correct actions not taken #deep
             targets[i] = model.predict(state_t)[0]
