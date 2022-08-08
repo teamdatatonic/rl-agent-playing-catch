@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import os
 from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import SGD
@@ -7,8 +8,12 @@ from keras.optimizers import SGD
 from agent import ExperienceReplay
 from env import Catch
 
+# create all necessary folders
+model_path = "./model/"
+os.makedirs(model_path, exist_ok=True)
+
 # parameters
-epsilon = .1  # exploration
+epsilon = 0.1  # exploration
 num_actions = 3  # [move_left, stay, move_right]
 epoch = 1000
 max_memory = 500
@@ -17,10 +22,10 @@ batch_size = 50
 grid_size = 10
 
 model = Sequential()
-model.add(Dense(hidden_size, input_shape=(grid_size**2,), activation='relu'))
-model.add(Dense(hidden_size, activation='relu'))
+model.add(Dense(hidden_size, input_shape=(grid_size ** 2,), activation="relu"))
+model.add(Dense(hidden_size, activation="relu"))
 model.add(Dense(num_actions))
-model.compile(SGD(learning_rate=.2), "mse")
+model.compile(SGD(learning_rate=0.2), "mse")
 
 # If you want to continue training from a previous model, just uncomment the line bellow
 # model.load_weights("model.h5")
@@ -34,7 +39,7 @@ exp_replay = ExperienceReplay(max_memory=max_memory)
 # Train
 win_cnt = 0
 for e in range(epoch):
-    loss = 0.
+    loss = 0.0
     env.reset()
     game_over = False
     # get initial input
@@ -61,9 +66,13 @@ for e in range(epoch):
         inputs, targets = exp_replay.get_batch(model, batch_size=batch_size)
 
         loss += model.train_on_batch(inputs, targets)
-    print("Epoch {:03d}/999 | Loss {:.4f} | Win count {}".format(e, loss, win_cnt))
+    print(
+        "Epoch {:03d}/{} | Loss {:.4f} | Win count {}".format(
+            e, epoch - 1, loss, win_cnt
+        )
+    )
 
 # Save trained model weights and architecture, this will be used by the visualization code
-model.save_weights("../model/model.h5", overwrite=True)
-with open("../model/model.h5", "w") as outfile:
+model.save_weights(model_path + "model.h5", overwrite=True)
+with open(model_path + "model.json", "w") as outfile:
     json.dump(model.to_json(), outfile)
