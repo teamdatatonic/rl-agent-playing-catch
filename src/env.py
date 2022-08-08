@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Catch(object):
     # initialise grid and reset upon construction
     def __init__(self, grid_size=10):
@@ -12,10 +13,10 @@ class Catch(object):
         Input: action and states
         Ouput: new states and reward
         """
-        
+
         # Get environment state
         state = self.state
-        
+
         # Action is given as list idxs, convert to lateral action movements
         if action == 0:  # left
             action = -1
@@ -23,12 +24,12 @@ class Catch(object):
             action = 0
         else:
             action = 1  # right
-        
+
         # decompose state into fruit position and basket position
         fruit_row, fruit_col, basket_position = state[0]
 
-        # Update basket and fruit position  
-        new_basket_position = min(max(1, basket_position + action), self.grid_size-1)
+        # Update basket and fruit position
+        new_basket_position = min(max(1, basket_position + action), self.grid_size - 1)
         fruit_row += 1
         out = np.asarray([fruit_row, fruit_col, new_basket_position])
         out = out[np.newaxis]
@@ -37,17 +38,17 @@ class Catch(object):
         self.state = out
 
     def _draw_state(self):
-        im_size = (self.grid_size,)*2
+        im_size = (self.grid_size,) * 2
         state = self.state[0]
         canvas = np.zeros(im_size)
         canvas[state[0], state[1]] = 1  # draw fruit
-        canvas[-1, state[2]-1:state[2] + 2] = 1  # draw basket
+        canvas[-1, state[2] - 1 : state[2] + 2] = 1  # draw basket
         return canvas
 
     def _get_reward(self):
         # Only yield a reward if fruit is as bottom of canvas and is in contact with basket
         fruit_row, fruit_col, basket = self.state[0]
-        if fruit_row == self.grid_size-1:
+        if fruit_row == self.grid_size - 1:
             if abs(fruit_col - basket) <= 1:
                 return 1
             else:
@@ -57,7 +58,7 @@ class Catch(object):
 
     def _is_over(self):
         # Game is over if fruit has reached bottom of canvas
-        if self.state[0, 0] == self.grid_size-1:
+        if self.state[0, 0] == self.grid_size - 1:
             return True
         else:
             return False
@@ -75,7 +76,6 @@ class Catch(object):
 
     def reset(self):
         # Init the board with the fruit and basket starting at random positions
-        n = np.random.randint(0, self.grid_size-1, size=1)[0]
-        m = np.random.randint(1, self.grid_size-2, size=1)[0]
+        n = np.random.randint(0, self.grid_size - 1, size=1)[0]
+        m = np.random.randint(1, self.grid_size - 2, size=1)[0]
         self.state = np.asarray([0, n, m])[np.newaxis]
-

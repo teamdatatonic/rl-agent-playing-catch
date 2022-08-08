@@ -22,7 +22,7 @@ batch_size = 50
 grid_size = 10
 
 model = Sequential()
-model.add(Dense(hidden_size, input_shape=(grid_size ** 2,), activation="relu"))
+model.add(Dense(hidden_size, input_shape=(grid_size**2,), activation="relu"))
 model.add(Dense(hidden_size, activation="relu"))
 model.add(Dense(num_actions))
 model.compile(SGD(learning_rate=0.2), "mse")
