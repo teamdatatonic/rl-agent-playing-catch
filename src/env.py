@@ -1,3 +1,10 @@
+"""Catch Environment Definition Class
+
+Python file containnig the Catch class environment definition.
+
+Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
+"""
+
 import numpy as np
 
 

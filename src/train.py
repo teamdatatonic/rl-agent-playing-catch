@@ -1,6 +1,15 @@
+"""Catch Training Sript
+
+Python file for running the Q-learning training process for game of Catch.
+Executed using 'poetry run python train.py'.
+
+Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
+"""
+
 import json
 import numpy as np
 import os
+
 from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import SGD
@@ -8,14 +17,14 @@ from keras.optimizers import SGD
 from agent import ExperienceReplay
 from env import Catch
 
-# create all necessary folders
+# Create all necessary folders
 model_path = "./model/"
 os.makedirs(model_path, exist_ok=True)
 
-# parameters
+# Parameters
 epsilon = 0.1  # exploration
 num_actions = 3  # [move_left, stay, move_right]
-epoch = 1000
+epochs = 1000
 max_memory = 500
 hidden_size = 100
 batch_size = 50
@@ -36,39 +45,42 @@ env = Catch(grid_size)
 # Initialize experience replay object
 exp_replay = ExperienceReplay(max_memory=max_memory)
 
-# Train
-win_cnt = 0
-for e in range(epoch):
-    loss = 0.0
+# Training loop
+win_count = 0
+for epoch in range(epochs):
+    # Reset and get initial input
     env.reset()
+    current_state = env.observe()
+
+    loss = 0.0
     game_over = False
-    # get initial input
-    input_t = env.observe()
 
     while not game_over:
-        input_tm1 = input_t
-        # get next action
+        # As we move into next step current state becomes previous state
+        previous_state = current_state
+
+        # Decide if next action is explorative or exploits current policy
         if np.random.rand() <= epsilon:
             action = np.random.randint(0, num_actions, size=1)
         else:
-            q = model.predict(input_tm1)
+            q = model.predict(previous_state)
             action = np.argmax(q[0])
 
-        # apply action, get rewards and new state
-        input_t, reward, game_over = env.act(action)
+        # Apply action and save rewards and new state
+        current_state, reward, game_over = env.act(action)
         if reward == 1:
-            win_cnt += 1
+            win_count += 1
 
-        # store experience
-        exp_replay.remember([input_tm1, action, reward, input_t], game_over)
+        # Store experience in experience replay
+        exp_replay.remember([previous_state, action, reward, current_state], game_over)
 
         # adapt model
         inputs, targets = exp_replay.get_batch(model, batch_size=batch_size)
 
         loss += model.train_on_batch(inputs, targets)
     print(
-        "Epoch {:03d}/{} | Loss {:.4f} | Win count {}".format(
-            e, epoch - 1, loss, win_cnt
+        "Epochs {:03d}/{} | Loss {:.4f} | Win count {}".format(
+            epoch, epochs - 1, loss, win_count
         )
     )
 
