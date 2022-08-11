@@ -5,6 +5,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 
 import numpy as np
 
+
 class ExperienceReplay(object):
     def __init__(self, max_memory=100, discount=0.9):
         self.max_memory = max_memory
