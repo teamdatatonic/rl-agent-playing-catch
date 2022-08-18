@@ -22,6 +22,7 @@ model_path = "./model/"
 os.makedirs(model_path, exist_ok=True)
 
 # Parameters
+# You may want to use smaller parameter values, especially for the number of epochs if you want to see the code in action
 epsilon = 0.1  # exploration
 num_actions = 3  # [move_left, stay, move_right]
 epochs = 1000

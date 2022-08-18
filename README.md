@@ -19,6 +19,7 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
 
 ## Running the code 
 * To run the train script locally run `poetry run python src/train.py`
+* Note: if you're just wanting to see the code in action, changing the number of epochs parameter in `train.py` will reduce the training time, enabling you to run the code quickly.
 * To run the inference script locally:
     1. Make sure you have a model file stored as `model/model.h5`
     2. Run `poetry run python src/run.py`
