@@ -29,7 +29,7 @@ class Catch(object):
         fruit_row, fruit_col, basket_position = state[0]
 
         # Update basket and fruit position
-        new_basket_position = min(max(1, basket_position + action), self.grid_size - 1)
+        new_basket_position = min(max(1, basket_position + action), self.grid_size - 2)
         fruit_row += 1
         out = np.asarray([fruit_row, fruit_col, new_basket_position])
         out = out[np.newaxis]
