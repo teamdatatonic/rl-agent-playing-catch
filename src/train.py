@@ -74,7 +74,7 @@ for epoch in range(epochs):
         # Store experience in experience replay
         exp_replay.remember([previous_state, action, reward, current_state], game_over)
 
-        # adapt model
+        # Adapt model
         inputs, targets = exp_replay.get_batch(model, batch_size=batch_size)
 
         loss += model.train_on_batch(inputs, targets)

@@ -33,7 +33,7 @@ with open(model_path + "model.json", "r") as jfile:
 model.load_weights(model_path + "model.h5")
 model.compile("sgd", "mse")
 
-# Define environment, game
+# Define environment
 env = Catch(grid_size)
 c = 0
 
@@ -42,7 +42,7 @@ for _ in range(10):
     loss = 0.0
     env.reset()
     game_over = False
-    # get initial input
+    # Get initial input
     input_t = env.observe()
 
     # Draw the environment
@@ -54,7 +54,7 @@ for _ in range(10):
     while not game_over:
         input_tm1 = input_t
 
-        # get next action
+        # Get next action
         q = model.predict(input_tm1)
         action = np.argmax(q[0])
 
