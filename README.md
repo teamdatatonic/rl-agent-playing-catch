@@ -25,3 +25,10 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
     2. Run `poetry run python src/run.py`
 
 ## Docker (TODO)
+
+# Contributing
+If you would like to develop on this repo ensure that the pre-commit hooks run on your local machine. To enable this run:
+```
+    pip install pre-commit
+    pre-commit install
+```
