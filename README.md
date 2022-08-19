@@ -24,7 +24,11 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
     1. Make sure you have a model file stored as `model/model.h5`
     2. Run `poetry run python src/run.py`
 
-## Docker (TODO)
+## Docker 
+To run the docker image:
+1. Make sure you have a Docker daemon running (e.g. using Docker Desktop)
+2. Run `docker build -t catch .` to build the dockerfile into an image with the tag `catch`
+2. Run `docker run catch` to run the training image in a container. (add the `--rm` flag to delete the container after it has run)
 
 # Contributing
 If you would like to develop on this repo ensure that the pre-commit hooks run on your local machine. To enable this run:
