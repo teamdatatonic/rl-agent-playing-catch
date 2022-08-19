@@ -8,14 +8,20 @@ Click [here](https://docs.google.com/document/d/1xg5XOEiPGzym0GEzzZr-oLxU_tabhzp
 * [pyenv](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
 * poetry
 
-For Unix users, we recommend the use of `pyenv` to manage the Python version as specifed in `.python-version`. See the [installation instruction](https://github.com/pyenv/pyenv#installation) for setting up `pyenv` on your system.
+For Unix users, we recommend the use of `pyenv` to manage the Python version as specifed in `.python-version`. See below for instructions on setting up `poetry` and `pyenv` on your system.
 
+#### For MacOS:
 * Install poetry `pip install poetry`
-* Install pyenv `pip install pyenv`
+* Install pyenv - Click [here](https://github.com/pyenv/pyenv#homebrew-in-macos)
+
+#### For Windows:
+* Install poetry `pip install poetry`
+* Pyenv does not officially support Windows, therefore you should instead ensure you have the correct version Python 3.9.0
+
 ## Installation
 * For first time users in the root directory run:
     1. `poetry install` to install all depenencies
-    2. `pyenv install` to install and use the correct version of python
+    2. `pyenv install` to install and use the correct version of python (for MacOS users)
 
 ## Running the code 
 * To run the train script locally run `poetry run python src/train.py`
