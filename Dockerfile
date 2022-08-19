@@ -1,7 +1,10 @@
 FROM python:3
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install poetry
+
+COPY pyproject.toml .
+
+RUN poetry config virtualenvs.create false && poetry install --no-dev
 
 WORKDIR .
 COPY . .
