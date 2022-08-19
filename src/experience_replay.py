@@ -37,7 +37,9 @@ class ExperienceReplay(object):
             del self.memory[0]
 
     def get_batch(self, model, batch_size=10):
-        """Get batch of inputs and target values, given a specified batch_size.
+        """Randomly selects a batch of experiences (of size batch_size) from the saved
+        experiences in self.memory, and returns the state inputs for each experience,
+        along with the q-values for each experience for every possible action (left, stay, right).
 
         Args:
             model (tf.keras.Model): Sequential neural network for predicting Q-values.
@@ -46,25 +48,41 @@ class ExperienceReplay(object):
         Returns:
             inputs (np.array), targets (np.array): state inpus to model, q-value from model for given state
         """
-        len_memory = len(self.memory)
-        num_actions = model.output_shape[-1]
+        memory_length = len(self.memory)
+        number_of_actions = model.output_shape[-1]
         env_dim = self.memory[0][0][0].shape[1]
-        inputs = np.zeros((min(len_memory, batch_size), env_dim))
-        targets = np.zeros((inputs.shape[0], num_actions))
 
+        # Placeholder for state inputs saved in the experience buffer
+        inputs = np.zeros((min(memory_length, batch_size), env_dim))
+
+        # Placeholder for target q-values after applying model to state input
+        targets = np.zeros((inputs.shape[0], number_of_actions))
+
+        # For each element in the batch of size batch_size randomly select an experience
+        # save it into inputs, and calculate the q-values for state to be saved into
+        # targets.
         for i, index in enumerate(
-            np.random.randint(0, len_memory, size=inputs.shape[0])
+            np.random.randint(0, memory_length, size=inputs.shape[0])
         ):
+            # Select random experience
             previous_state, action_t, reward, current_state = self.memory[index][0]
             game_over = self.memory[index][1]
 
             inputs[i] = previous_state
+
+            # Use state to calculate q-values for each action
             targets[i] = model.predict(previous_state)[0]
+
+            # Greedily choose maximum q-value
             Q_sa = np.max(model.predict(current_state)[0])
 
-            if game_over:  # If game_over is True
+            # Save into targets
+            # If game_over is True use end reward
+            # If not use current reward + discounted q-value
+            if game_over:
                 targets[i, action_t] = reward
             else:
                 # reward + gamma * max_a' Q(s', a')
                 targets[i, action_t] = reward + self.discount * Q_sa
+
         return inputs, targets

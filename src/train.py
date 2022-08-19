@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import SGD
 
-from agent import ExperienceReplay
+from experience_replay import ExperienceReplay
 from env import Catch
 
 # Create all necessary folders
