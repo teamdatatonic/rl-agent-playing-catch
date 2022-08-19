@@ -12,7 +12,7 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
 
 #### For MacOS:
 * Install poetry `pip install poetry`
-* Install pyenv - Click [here](https://github.com/pyenv/pyenv#homebrew-in-macos)
+* Install [pyenv](https://github.com/pyenv/pyenv#homebrew-in-macos)
 
 #### For Windows:
 * Install poetry `pip install poetry`
