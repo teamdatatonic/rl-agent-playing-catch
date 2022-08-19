@@ -1,3 +1,10 @@
+"""Catch Game Sript
+
+Python file for running the Catch game using a model trained in 'train.py'.
+Executed using 'poetry run python run.py'.
+
+Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
+"""
 import imageio
 import json
 import matplotlib.pyplot as plt
@@ -9,9 +16,6 @@ from keras.models import model_from_json
 
 from env import Catch
 
-# Make sure this grid size matches the value used fro training
-grid_size = 10
-
 # Ensure folders are created
 model_path = "./model/"
 image_path = "./image/"
@@ -20,6 +24,8 @@ gif_path = "./gif/"
 os.makedirs(image_path, exist_ok=True)
 os.makedirs(gif_path, exist_ok=True)
 
+# Make sure this grid size matches the value used for training
+grid_size = 10
 
 # Load the trained model
 with open(model_path + "model.json", "r") as jfile:
@@ -27,16 +33,16 @@ with open(model_path + "model.json", "r") as jfile:
 model.load_weights(model_path + "model.h5")
 model.compile("sgd", "mse")
 
-# Define environment, game
+# Define environment
 env = Catch(grid_size)
 c = 0
 
 # Run n iterations of the game
-for e in range(10):
+for _ in range(10):
     loss = 0.0
     env.reset()
     game_over = False
-    # get initial input
+    # Get initial input
     input_t = env.observe()
 
     # Draw the environment
@@ -48,7 +54,7 @@ for e in range(10):
     while not game_over:
         input_tm1 = input_t
 
-        # get next action
+        # Get next action
         q = model.predict(input_tm1)
         action = np.argmax(q[0])
 
