@@ -8,14 +8,20 @@ Click [here](https://docs.google.com/document/d/1xg5XOEiPGzym0GEzzZr-oLxU_tabhzp
 * [pyenv](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
 * poetry
 
-For Unix users, we recommend the use of `pyenv` to manage the Python version as specifed in `.python-version`. See the [installation instruction](https://github.com/pyenv/pyenv#installation) for setting up `pyenv` on your system.
+For Unix users, we recommend the use of `pyenv` to manage the Python version as specifed in `.python-version`. See below for instructions on setting up `poetry` and `pyenv` on your system.
 
+#### For MacOS:
 * Install poetry `pip install poetry`
-* Install pyenv `pip install pyenv`
+* Install [pyenv](https://github.com/pyenv/pyenv#homebrew-in-macos)
+
+#### For Windows:
+* Install poetry `pip install poetry`
+* Pyenv does not officially support Windows, therefore you should instead ensure you have the correct version Python 3.9.0
+
 ## Installation
 * For first time users in the root directory run:
     1. `poetry install` to install all depenencies
-    2. `pyenv install` to install and use the correct version of python
+    2. `pyenv install` to install and use the correct version of python (for MacOS users)
 
 ## Running the code 
 * To run the train script locally run `poetry run python src/train.py`
@@ -24,4 +30,15 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
     1. Make sure you have a model file stored as `model/model.h5`
     2. Run `poetry run python src/run.py`
 
-## Docker (TODO)
+## Docker 
+To run the docker image:
+1. Make sure you have a Docker daemon running (e.g. using Docker Desktop)
+2. Run `docker build -t catch .` to build the dockerfile into an image with the tag `catch`
+2. Run `docker run catch` to run the training image in a container. (add the `--rm` flag to delete the container after it has run)
+
+# Contributing
+If you would like to develop on this repo ensure that the pre-commit hooks run on your local machine. To enable this run:
+```
+    pip install pre-commit
+    pre-commit install
+```
