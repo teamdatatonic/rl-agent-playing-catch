@@ -6,6 +6,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """
 
 import numpy as np
+from typing import Type
 
 
 class Catch(object):
@@ -16,7 +17,7 @@ class Catch(object):
     rewards.
     """
 
-    def __init__(self, grid_size=10):
+    def __init__(self, grid_size: int = 10) -> None:
         """Initialise grid with a defualt 10 by 10 size and reset upon construction.
 
         Args:
@@ -25,7 +26,7 @@ class Catch(object):
         self.grid_size = grid_size
         self.reset()
 
-    def _update_state(self, action):
+    def _update_state(self, action: int) -> None:
         """Takes action given from (left, stay, right) and applies action to find next state
         of the fruit and basket.
 
@@ -55,7 +56,7 @@ class Catch(object):
         assert len(out.shape) == 2
         self.state = out
 
-    def _get_reward(self):
+    def _get_reward(self) -> int:
         """Use state of the game to return the current reward.
 
         Yield a reward of 1 if fruit is as bottom of canvas and is in contact with basket.
@@ -74,7 +75,7 @@ class Catch(object):
         else:
             return 0
 
-    def _is_over(self):
+    def _is_over(self) -> bool:
         """Game is over if fruit has reached bottom of canvas
 
         Returns:
@@ -85,7 +86,7 @@ class Catch(object):
         else:
             return False
 
-    def observe(self):
+    def observe(self) -> Type[np.array]:
         """Displays the state in a user friendly visualisation. Where the basket and fruit
         are 1's and everything else is 0's.
 
@@ -99,7 +100,7 @@ class Catch(object):
         canvas[-1, state[2] - 1 : state[2] + 2] = 1  # Draw basket
         return canvas.reshape((1, -1))
 
-    def act(self, action):
+    def act(self, action: int):
         """Given an action, update the state, get the rewards, check if it is over
          and redraw the canvas with the new state.
 
@@ -115,7 +116,7 @@ class Catch(object):
         game_over = self._is_over()
         return self.observe(), reward, game_over
 
-    def reset(self):
+    def reset(self) -> None:
         """Init the board with the fruit and basket starting at random positions."""
         n = np.random.randint(0, self.grid_size - 1, size=1)[0]
         m = np.random.randint(1, self.grid_size - 2, size=1)[0]

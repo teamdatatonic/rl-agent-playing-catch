@@ -16,6 +16,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import SGD
 import tensorflow as tf
+import keras
 
 from experience_replay import ExperienceReplay
 from env import Catch
@@ -28,7 +29,7 @@ def define_model(
     hidden_activation: str = "relu",
     loss: str = "mse",
     hidden_layers: int = 2,
-) -> Type[Sequential]:
+) -> Type[keras.Model]:
     model = Sequential()
     model.add(
         Dense(hidden_size, input_shape=(grid_size ** 2,), activation=hidden_activation)
@@ -42,12 +43,12 @@ def define_model(
 
 
 def train_model(
-    model: Type[Sequential],
+    model: Type[keras.Model],
     epochs: int,
     experience_replay: int,
     epsilon: int,
     batch_size: int,
-) -> Type[Sequential]:
+) -> Type[keras.Model]:
 
     logging.info("Initializing model training")
     # Training loop
