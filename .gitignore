@@ -4,6 +4,8 @@
 */model/
 */image/
 */gif/
-poetry.lock
 .DS_Store
 */.DS_Store
+
+model/
+.envrc
