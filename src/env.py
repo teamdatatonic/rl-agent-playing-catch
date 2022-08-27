@@ -1,4 +1,5 @@
-"""Catch Environment Definition Class
+"""
+Catch Environment Definition Class
 
 Python file containnig the Catch class environment definition.
 
@@ -57,7 +58,8 @@ class Catch(object):
         self.state = out
 
     def _get_reward(self) -> int:
-        """Use state of the game to return the current reward.
+        """
+        Use state of the game to return the current reward.
 
         Yield a reward of 1 if fruit is as bottom of canvas and is in contact with basket.
         Yield a reward of -1 if fruit is at the bottom of the canvas without contact with the basket.
@@ -76,7 +78,8 @@ class Catch(object):
             return 0
 
     def _is_over(self) -> bool:
-        """Game is over if fruit has reached bottom of canvas
+        """
+        Game is over if fruit has reached bottom of canvas
 
         Returns:
             bool: True game is over, or False game isn't over.
@@ -87,7 +90,8 @@ class Catch(object):
             return False
 
     def observe(self) -> Type[np.array]:
-        """Displays the state in a user friendly visualisation. Where the basket and fruit
+        """
+        Displays the state in a user friendly visualisation. Where the basket and fruit
         are 1's and everything else is 0's.
 
         Returns:
@@ -101,8 +105,9 @@ class Catch(object):
         return canvas.reshape((1, -1))
 
     def act(self, action: int):
-        """Given an action, update the state, get the rewards, check if it is over
-         and redraw the canvas with the new state.
+        """
+        Given an action, update the state, get the rewards, check if it is over
+        and redraw the canvas with the new state.
 
         Args:
             action (int):  Given action left (0), stay (1) or right (any other int).
@@ -117,7 +122,9 @@ class Catch(object):
         return self.observe(), reward, game_over
 
     def reset(self) -> None:
-        """Init the board with the fruit and basket starting at random positions."""
+        """
+        Init the board with the fruit and basket starting at random positions.
+        """
         n = np.random.randint(0, self.grid_size - 1, size=1)[0]
         m = np.random.randint(1, self.grid_size - 2, size=1)[0]
         self.state = np.asarray([0, n, m])[np.newaxis]

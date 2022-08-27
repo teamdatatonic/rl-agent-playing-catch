@@ -1,4 +1,5 @@
-"""Experience Replay Class Definition
+"""
+Experience Replay Class Definition
 
 Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """
@@ -9,14 +10,16 @@ from typing import Type
 
 
 class ExperienceReplay(object):
-    """A class to provide experience replay.
-    Contains the inialization of the replay buffer with given parameters, a method to remember
+    """
+    A class to provide experience replay.
+    Contains the initalization of the replay buffer with given parameters, a method to remember
     current state and a method to randomly select a batch of experiences for training
     the model.
     """
 
     def __init__(self, max_memory: int = 100, discount: int = 0.9) -> None:
-        """Initialization of the experience buffer.
+        """
+        Initialization of the experience buffer.
 
         Args:
             max_memory (int, optional): Maximum length of experience lookback saved. Defaults to 100.
@@ -27,7 +30,8 @@ class ExperienceReplay(object):
         self.discount = discount
 
     def remember(self, states: list, game_over: bool) -> None:
-        """Memorize the current state of the game in the experience buffer.
+        """
+        Memorize the current state of the game in the experience buffer.
         If max memory is reached delete oldest entry.
 
         Args:
@@ -39,7 +43,8 @@ class ExperienceReplay(object):
             del self.memory[0]
 
     def get_batch(self, model: Type[keras.Model], batch_size: int = 10):
-        """Randomly selects a batch of experiences (of size batch_size) from the saved
+        """
+        Randomly selects a batch of experiences (of size batch_size) from the saved
         experiences in self.memory, and returns the state inputs for each experience,
         along with the q-values for each experience for every possible action (left, stay, right).
 
