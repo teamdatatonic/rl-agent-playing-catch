@@ -36,7 +36,7 @@ To run the docker image:
 2. Run `docker build -t catch .` to build the dockerfile into an image with the tag `catch`
 2. Run `docker run catch` to run the training image in a container. (add the `--rm` flag to delete the container after it has run)
 
-## Adjusting Training Parameters
+## Adjusting Training & Run Parameters
 To explore and adjust the model training parameters, you can set the environment variables:
 - `TRAIN_EPOCHS`
 - `TRAIN_EPSILON`
@@ -47,6 +47,9 @@ To explore and adjust the model training parameters, you can set the environment
 - `TRAIN_GRID_SIZE` 
 
 In addition, if you want to warm start the model, set `TRAIN_WARM_START_PATH` with a previous model's weights file. For example `./model/model.h5`
+
+Model run environment variables:
+- `RUN_GAME_ITERATIONS`
 
 ### Direnv
 [Direnv](https://direnv.net) is a great tool to define environment variables at a folder level.  

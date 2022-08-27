@@ -3,7 +3,10 @@ set -a
 
 export PYTHONPATH=$PYTHONPATH:$(pwd)
 
+# Model training parameters
 export TRAIN_EPOCHS=5
 export TRAIN_HIDDEN_LAYERS=5
-
 export TRAIN_WARM_START_PATH="./model/model.h5"
+
+# Model runtime parameters
+export RUN_GAME_ITERATIONS=2
