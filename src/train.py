@@ -33,7 +33,7 @@ def define_model(
 ) -> Type[keras.Model]:
     model = Sequential()
     model.add(
-        Dense(hidden_size, input_shape=(grid_size ** 2,), activation=hidden_activation)
+        Dense(hidden_size, input_shape=(grid_size**2,), activation=hidden_activation)
     )
     # Dynamically add additional hidden layers
     for _ in range(1, hidden_layers):

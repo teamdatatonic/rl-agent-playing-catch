@@ -7,7 +7,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """
 
 import numpy as np
-from typing import Type
+from typing import Tuple, Type
 
 
 class Catch(object):
@@ -104,7 +104,7 @@ class Catch(object):
         canvas[-1, state[2] - 1 : state[2] + 2] = 1  # Draw basket
         return canvas.reshape((1, -1))
 
-    def act(self, action: int):
+    def act(self, action: int) -> Tuple[np.array, int, bool]:
         """
         Given an action, update the state, get the rewards, check if it is over
         and redraw the canvas with the new state.

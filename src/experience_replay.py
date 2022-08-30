@@ -6,7 +6,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 
 import numpy as np
 import keras
-from typing import Type
+from typing import Tuple, Type
 
 
 class ExperienceReplay(object):
@@ -42,7 +42,9 @@ class ExperienceReplay(object):
         if len(self.memory) > self.max_memory:
             del self.memory[0]
 
-    def get_batch(self, model: Type[keras.Model], batch_size: int = 10):
+    def get_batch(
+        self, model: Type[keras.Model], batch_size: int = 10
+    ) -> Tuple[np.array, np.array]:
         """
         Randomly selects a batch of experiences (of size batch_size) from the saved
         experiences in self.memory, and returns the state inputs for each experience,
