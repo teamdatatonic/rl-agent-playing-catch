@@ -34,7 +34,7 @@ For Unix users, we recommend the use of `pyenv` to manage the Python version as 
 To run the docker image:
 1. Make sure you have a Docker daemon running (e.g. using Docker Desktop)
 2. Run `docker build -t catch .` to build the dockerfile into an image with the tag `catch`
-2. Run `docker run catch` to run the training image in a container. (add the `--rm` flag to delete the container after it has run)
+3. Run `docker run catch` to run the training image in a container. (add the `--rm` flag to delete the container after it has run). To obtain the gif resulting from the model running, use `docker run -v $(pwd):/rl-catch-example/gif catch`. In addition `-e` can be used to specify run-time environment variables.
 
 ## Adjusting Training & Run Parameters
 To explore and adjust the model training parameters, you can set the environment variables:
