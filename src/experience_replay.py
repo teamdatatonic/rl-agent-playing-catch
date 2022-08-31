@@ -1,20 +1,25 @@
-"""Experience Replay Class Definition
+"""
+Experience Replay Class Definition
 
 Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """
 
 import numpy as np
+import keras
+from typing import Tuple, Type
 
 
 class ExperienceReplay(object):
-    """A class to provide experience replay.
-    Contains the inialization of the replay buffer with given parameters, a method to remember
+    """
+    A class to provide experience replay.
+    Contains the initalization of the replay buffer with given parameters, a method to remember
     current state and a method to randomly select a batch of experiences for training
     the model.
     """
 
-    def __init__(self, max_memory=100, discount=0.9):
-        """Initialization of the experience buffer.
+    def __init__(self, max_memory: int = 100, discount: int = 0.9) -> None:
+        """
+        Initialization of the experience buffer.
 
         Args:
             max_memory (int, optional): Maximum length of experience lookback saved. Defaults to 100.
@@ -24,8 +29,9 @@ class ExperienceReplay(object):
         self.memory = list()
         self.discount = discount
 
-    def remember(self, states, game_over):
-        """Memorize the current state of the game in the experience buffer.
+    def remember(self, states: list, game_over: bool) -> None:
+        """
+        Memorize the current state of the game in the experience buffer.
         If max memory is reached delete oldest entry.
 
         Args:
@@ -36,8 +42,11 @@ class ExperienceReplay(object):
         if len(self.memory) > self.max_memory:
             del self.memory[0]
 
-    def get_batch(self, model, batch_size=10):
-        """Randomly selects a batch of experiences (of size batch_size) from the saved
+    def get_batch(
+        self, model: Type[keras.Model], batch_size: int = 10
+    ) -> Tuple[np.array, np.array]:
+        """
+        Randomly selects a batch of experiences (of size batch_size) from the saved
         experiences in self.memory, and returns the state inputs for each experience,
         along with the q-values for each experience for every possible action (left, stay, right).
 

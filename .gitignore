@@ -1,9 +1,12 @@
 */__pycache__
 .vscode
 *.swp
-*/model/
-*/image/
-*/gif/
-poetry.lock
 .DS_Store
 */.DS_Store
+
+# Ignore all model artefacts
+gif/
+image/
+model/
+
+.envrc
