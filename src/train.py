@@ -122,7 +122,7 @@ if __name__ == "__main__":
     ## Define Model
     model = define_model(hidden_size, num_actions, hidden_layers=hidden_layers)
 
-    # If you want to continue training from a previous model, just uncomment the line bellow
+    # If you want to continue training from a previous model.
     if warm_start_model:
         logging.info(f"Warm starting model with previous weights: {warm_start_model}")
         model.load_weights(warm_start_model)
