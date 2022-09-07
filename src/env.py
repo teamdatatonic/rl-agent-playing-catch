@@ -13,7 +13,6 @@ from typing import Tuple, Type
 left = -1
 stay = 0
 right = 1
-# right = any other int
 
 
 class Catch(object):
@@ -48,7 +47,7 @@ class Catch(object):
             move = left
         elif action == 1:
             move = stay
-        else:  # right
+        else:
             move = right
 
         # Decompose state into fruit position and basket position
