@@ -1,5 +1,5 @@
 """
-Catch Environment Definition Class
+Catch Game Environment Definition Class
 
 Python file containnig the Catch class environment definition.
 

@@ -1,5 +1,5 @@
 """
-Catch Game Training Sript
+Catch Game Training Script
 
 Python file for running the Q-learning training process for game of Catch.
 Executed using 'poetry run python train.py'.

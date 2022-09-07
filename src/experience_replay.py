@@ -1,5 +1,7 @@
 """
-Experience Replay Class Definition
+Catch Game Experience Replay Class Definition
+
+Python file containnig the Experience Replay class definitioin.
 
 Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """

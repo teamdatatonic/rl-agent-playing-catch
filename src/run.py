@@ -1,5 +1,5 @@
 """
-Catch Game Inference Sript
+Catch Game Inference Script
 
 Python file for running the Catch game using a model trained in 'train.py'.
 Executed using 'poetry run python run.py'.
