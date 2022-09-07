@@ -9,6 +9,12 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 import numpy as np
 from typing import Tuple, Type
 
+# movements
+left = -1
+stay = 0
+right = 1
+# right = any other int
+
 
 class Catch(object):
     """
@@ -32,24 +38,24 @@ class Catch(object):
         of the fruit and basket.
 
         Args:
-            action (int): Given action left (0), stay (1) or right (any other int).
+            move (int): Given action left (0), stay (1) or right (any other int).
         """
         # Get environment state
         state = self.state
 
         # Action is given as list idxs, convert to lateral action movements
-        if action == 0:  # left
-            action = -1
-        elif action == 1:  # stay
-            action = 0
-        else:
-            action = 1  # right
+        if action == 0:
+            move = left
+        elif action == 1:
+            move = stay
+        else:  # right
+            move = right
 
         # Decompose state into fruit position and basket position
         fruit_row, fruit_col, basket_position = state[0]
 
         # Update basket and fruit position
-        new_basket_position = min(max(1, basket_position + action), self.grid_size - 2)
+        new_basket_position = min(max(1, basket_position + move), self.grid_size - 2)
         fruit_row += 1
         out = np.asarray([fruit_row, fruit_col, new_basket_position])
         out = out[np.newaxis]
