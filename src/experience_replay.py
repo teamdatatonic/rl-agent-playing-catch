@@ -14,7 +14,7 @@ from typing import Tuple, Type
 class ExperienceReplay(object):
     """
     A class to provide experience replay.
-    Contains the initalization of the replay buffer with given parameters, a method to remember
+    Contains the initalization of the replay buffer with given parameters, a method to add_experience
     current state and a method to randomly select a batch of experiences for training
     the model.
     """
@@ -31,7 +31,7 @@ class ExperienceReplay(object):
         self.memory = list()
         self.discount = discount
 
-    def remember(self, states: list, game_over: bool) -> None:
+    def add_experience(self, states: list, game_over: bool) -> None:
         """
         Memorize the current state of the game in the experience buffer.
         If max memory is reached delete oldest entry.

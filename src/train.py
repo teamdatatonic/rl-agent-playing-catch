@@ -36,7 +36,7 @@ def define_model(
         Dense(hidden_size, input_shape=(grid_size**2,), activation=hidden_activation)
     )
     # Dynamically add additional hidden layers
-    for _ in range(1, hidden_layers):
+    for _ in range(hidden_layers - 1):
         model.add(Dense(hidden_size, activation=hidden_activation))
     model.add(Dense(num_actions))
     model.compile(SGD(learning_rate=learning_rate), loss)
@@ -79,7 +79,7 @@ def train_model(
                 win_count += 1
 
             # Store experience in experience replay
-            experience_replay.remember(
+            experience_replay.add_experience(
                 [previous_state, action, reward, current_state], game_over
             )
 
