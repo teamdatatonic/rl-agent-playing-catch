@@ -84,10 +84,7 @@ class Catch(object):
         Returns:
             bool: True game is over, or False game isn't over.
         """
-        if self.state[0, 0] == self.grid_size - 1:
-            return True
-        else:
-            return False
+        return self.state[0, 0] == self.grid_size - 1
 
     def observe(self) -> Type[np.array]:
         """
