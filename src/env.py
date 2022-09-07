@@ -9,7 +9,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 import numpy as np
 from typing import Tuple, Type
 
-# movements
+# Movements
 left = -1
 stay = 0
 right = 1
@@ -56,8 +56,7 @@ class Catch(object):
         # Update basket and fruit position
         new_basket_position = min(max(1, basket_position + move), self.grid_size - 2)
         fruit_row += 1
-        out = np.asarray([fruit_row, fruit_col, new_basket_position])
-        out = out[np.newaxis]
+        out = np.array([[fruit_row, fruit_col, new_basket_position]])
 
         assert len(out.shape) == 2
         self.state = out
