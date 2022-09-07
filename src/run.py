@@ -34,6 +34,9 @@ def run_game(
 ) -> None:
     c = 0
 
+    # Define environment
+    env = Catch(grid_size)
+
     # Run n iterations of the game
     for i in range(game_iterations):
         logging.info(f"Catch game iteration {i} starting")
@@ -80,9 +83,7 @@ if __name__ == "__main__":
     model.compile("sgd", "mse")
     logging.info(f"Model {model_comp_path} loaded and compiled")
 
-    # Define environment
-    env = Catch(grid_size)
-
+    # play the game
     run_game(model, image_path, grid_size, game_iterations)
 
     # Generate Gif
