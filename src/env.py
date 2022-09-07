@@ -98,9 +98,8 @@ class Catch(object):
         Returns:
             np.array: 2-dim grid_size by grid_size of 0's and 1's
         """
-        im_size = (self.grid_size,) * 2
         state = self.state[0]
-        canvas = np.zeros(im_size)
+        canvas = np.zeros((self.grid_size,) * 2)
         canvas[state[0], state[1]] = 1  # Draw fruit
         canvas[-1, state[2] - 1 : state[2] + 2] = 1  # Draw basket
         return canvas.reshape((1, -1))
