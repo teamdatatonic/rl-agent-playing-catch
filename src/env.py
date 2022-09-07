@@ -122,6 +122,6 @@ class Catch(object):
         """
         Init the board with the fruit and basket starting at random positions.
         """
-        n = np.random.randint(0, self.grid_size - 1, size=1)[0]
-        m = np.random.randint(1, self.grid_size - 2, size=1)[0]
-        self.state = np.asarray([0, n, m])[np.newaxis]
+        n = np.random.randint(self.grid_size)
+        m = np.random.randint(1, self.grid_size - 2)
+        self.state = np.array([[0, n, m]])
