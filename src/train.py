@@ -105,12 +105,10 @@ if __name__ == "__main__":
     model_path = "./model"
     os.makedirs(model_path, exist_ok=True)
 
-    # Define Parameters
-
     # Fixed number of actions
     num_actions = 3
 
-    # Environment variable parameters. Smaller parameters values are adopted to reduce training time.
+    # Define environment variable parameters. Smaller parameters values are adopted to reduce training time.
     epochs = int(os.environ.get("TRAIN_EPOCHS", 3))
     epsilon = float(os.environ.get("TRAIN_EPSILON", 0.1))
     max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 640))
