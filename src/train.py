@@ -109,9 +109,9 @@ if __name__ == "__main__":
     num_actions = 3
 
     # Define environment variable parameters. Smaller parameters values are adopted to reduce training time.
-    epochs = int(os.environ.get("TRAIN_EPOCHS", 3))
+    epochs = int(os.environ.get("TRAIN_EPOCHS", 5))
     epsilon = float(os.environ.get("TRAIN_EPSILON", 0.1))
-    max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 640))
+    max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 2_000))
     hidden_size = int(os.environ.get("TRAIN_HIDDEN_SIZE", 100))
     hidden_layers = int(os.environ.get("TRAIN_HIDDEN_LAYERS", 2))
     batch_size = int(os.environ.get("TRAIN_BATCH_SIZE", 64))

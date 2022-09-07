@@ -10,9 +10,9 @@ import numpy as np
 from typing import Tuple, Type
 
 # Movements
-left = -1
-stay = 0
-right = 1
+LEFT = -1
+STAY = 0
+RIGHT = 1
 
 
 class Catch(object):
@@ -44,11 +44,11 @@ class Catch(object):
 
         # Action is given as list idxs, convert to lateral action movements
         if action == 0:
-            move = left
+            move = LEFT
         elif action == 1:
-            move = stay
+            move = STAY
         else:
-            move = right
+            move = RIGHT
 
         # Decompose state into fruit position and basket position
         fruit_row, fruit_col, basket_position = state[0]
