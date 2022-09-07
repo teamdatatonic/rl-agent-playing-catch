@@ -31,16 +31,16 @@ class ExperienceReplay(object):
         self.memory = list()
         self.discount = discount
 
-    def add_experience(self, states: list, game_over: bool) -> None:
+    def add_experience(self, sars: list, game_over: bool) -> None:
         """
         Memorize the current state of the game in the experience buffer.
         If max memory is reached delete oldest entry.
 
         Args:
-            states (List): [previous_state, action, reward, current_state]
+            sars (List): [previous_state, action, reward, current_state]
             game_over (bool): Is game over True or False
         """
-        self.memory.append([states, game_over])
+        self.memory.append([sars, game_over])
         if len(self.memory) > self.max_memory:
             del self.memory[0]
 
@@ -95,7 +95,6 @@ class ExperienceReplay(object):
             else:
                 # reward + gamma * max_a' Q(s', a')
                 # reward is always zero, but is added in for generality
-                print("reward: " + str(reward))
                 targets[i, action_t] = reward + self.discount * Q_sa
 
         return inputs, targets
