@@ -94,7 +94,7 @@ class ExperienceReplay(object):
                 targets[i, action_t] = reward
             else:
                 # reward + gamma * max_a' Q(s', a')
-                # reward is always zero, but is added in for generality
+                # reward is always zero, but is added for generality
                 targets[i, action_t] = reward + self.discount * Q_sa
 
         return inputs, targets
