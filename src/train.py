@@ -1,5 +1,5 @@
 """
-Catch Training Sript
+Catch Game Training Sript
 
 Python file for running the Q-learning training process for game of Catch.
 Executed using 'poetry run python train.py'.

@@ -1,5 +1,5 @@
 """
-Catch Game Sript
+Catch Game Inference Sript
 
 Python file for running the Catch game using a model trained in 'train.py'.
 Executed using 'poetry run python run.py'.
