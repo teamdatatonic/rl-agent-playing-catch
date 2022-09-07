@@ -8,6 +8,7 @@ Authors: Sofie Verrewaere, Hiru Ranasinghe & Daniel Miskell @ Datatonic
 """
 import imageio.v2 as imageio
 import json
+import keras
 import matplotlib.pyplot as plt
 import logging
 import numpy as np
@@ -28,7 +29,9 @@ def _save_img(input: Type[np.array], image_path: str, c: int, grid_size: int) ->
     logging.debug(f"Catch game image created: {image_comp_path}")
 
 
-def run_game(image_path: str, grid_size: int, game_iterations: int = 10) -> None:
+def run_game(
+    model: Type[keras.Model], image_path: str, grid_size: int, game_iterations: int = 10
+) -> None:
     c = 0
 
     # Run n iterations of the game
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     # Define environment
     env = Catch(grid_size)
 
-    run_game(image_path, grid_size, game_iterations)
+    run_game(model, image_path, grid_size, game_iterations)
 
     # Generate Gif
     filenames = next(walk(image_path), (None, None, []))[2]
