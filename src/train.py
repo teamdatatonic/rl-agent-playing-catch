@@ -105,11 +105,12 @@ if __name__ == "__main__":
     model_path = "./model"
     os.makedirs(model_path, exist_ok=True)
 
-    ## Define Parameters
-    # You may want to use smaller parameter values, especially for the number of epochs if you want to see the code in action
-    num_actions = 3  # [move_left, stay, move_right]
+    # Define Parameters
 
-    # Environment variable parameters. Reduce to reduce training time.
+    # Fixed number of actions
+    num_actions = 3
+
+    # Environment variable parameters. Smaller parameters values are adopted to reduce training time.
     epochs = int(os.environ.get("TRAIN_EPOCHS", 3))
     epsilon = float(os.environ.get("TRAIN_EPSILON", 0.1))
     max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 640))
@@ -119,7 +120,7 @@ if __name__ == "__main__":
     grid_size = int(os.environ.get("TRAIN_GRID_SIZE", 10))
     warm_start_model = os.environ.get("TRAIN_WARM_START_PATH")
 
-    ## Define Model
+    # Define Model
     model = define_model(hidden_size, num_actions, hidden_layers=hidden_layers)
 
     # If you want to continue training from a previous model.
@@ -127,13 +128,13 @@ if __name__ == "__main__":
         logging.info(f"Warm starting model with previous weights: {warm_start_model}")
         model.load_weights(warm_start_model)
 
-    ## Define Environment
+    # Define Environment
     env = Catch(grid_size)
 
     # Initialize experience replay object
     exp_replay = ExperienceReplay(max_memory=max_memory)
 
-    ## Train Model
+    # Train Model
     trained_model = train_model(model, epochs, exp_replay, epsilon, batch_size)
 
     # Save trained model weights and architecture, this will be used by the visualization code
