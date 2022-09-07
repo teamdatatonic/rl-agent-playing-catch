@@ -73,7 +73,7 @@ class ExperienceReplay(object):
         # save it into inputs, and calculate the q-values for state to be saved into
         # targets.
         for i, index in enumerate(
-            np.random.randint(0, memory_length, size=inputs.shape[0])
+            np.random.choice(memory_length, size=inputs.shape[0], replace=False)
         ):
             # Select random experience
             previous_state, action_t, reward, current_state = self.memory[index][0]
