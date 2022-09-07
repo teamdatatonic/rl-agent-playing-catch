@@ -26,7 +26,7 @@ from env import Catch
 def define_model(
     hidden_size: int,
     num_actions: int,
-    learning_rate: float = 0.2,
+    learning_rate: float = 0.1,
     hidden_activation: str = "relu",
     loss: str = "mse",
     hidden_layers: int = 2,
@@ -110,12 +110,12 @@ if __name__ == "__main__":
     num_actions = 3  # [move_left, stay, move_right]
 
     # Environment variable parameters. Reduce to reduce training time.
-    epochs = int(os.environ.get("TRAIN_EPOCHS", 1000))
+    epochs = int(os.environ.get("TRAIN_EPOCHS", 3))
     epsilon = float(os.environ.get("TRAIN_EPSILON", 0.1))
-    max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 500))
+    max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 640))
     hidden_size = int(os.environ.get("TRAIN_HIDDEN_SIZE", 100))
     hidden_layers = int(os.environ.get("TRAIN_HIDDEN_LAYERS", 2))
-    batch_size = int(os.environ.get("TRAIN_BATCH_SIZE", 50))
+    batch_size = int(os.environ.get("TRAIN_BATCH_SIZE", 64))
     grid_size = int(os.environ.get("TRAIN_GRID_SIZE", 10))
     warm_start_model = os.environ.get("TRAIN_WARM_START_PATH")
 
