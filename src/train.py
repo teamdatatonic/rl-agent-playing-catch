@@ -83,7 +83,9 @@ def train_model(
             )
 
             # Adapt model
-            inputs, targets = experience_replay.get_batch(model, batch_size=batch_size)
+            inputs, targets = experience_replay.get_qlearning_batch(
+                model, batch_size=batch_size
+            )
 
             loss += model.train_on_batch(inputs, targets)
 
