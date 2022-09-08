@@ -91,5 +91,5 @@ if __name__ == "__main__":
     images = []
     for filename in filenames:
         images.append(imageio.imread(f"{image_path}/{filename}"))
-    imageio.mimsave(gif_comp_path := f"{gif_path}/catch.gif", images)
+    imageio.mimsave(gif_comp_path := f"{gif_path}/catch.gif", images, fps=4)
     logging.info(f"Catch game GIF created at {gif_comp_path}")

@@ -44,7 +44,7 @@ class ExperienceReplay(object):
         if len(self.memory) > self.max_memory:
             del self.memory[0]
 
-    def get_batch(
+    def get_qlearning_batch(
         self, model: Type[keras.Model], batch_size: int = 10
     ) -> Tuple[np.array, np.array]:
         """
