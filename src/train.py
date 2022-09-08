@@ -77,8 +77,6 @@ def train_model(
             current_state, reward, game_over = env.act(action)
             win_count += reward == 1
 
-            # print(action, env.state, reward)
-
             # Store experience in experience replay
             experience_replay.add_experience(
                 [previous_state, int(action), reward, current_state], game_over
