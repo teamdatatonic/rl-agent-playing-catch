@@ -19,7 +19,7 @@ class ExperienceReplay(object):
     the model.
     """
 
-    def __init__(self, max_memory: int = 100, discount: int = 0.9) -> None:
+    def __init__(self, max_memory: int = 100, discount: float = 0.99) -> None:
         """
         Initialization of the experience buffer.
 
@@ -67,34 +67,35 @@ class ExperienceReplay(object):
         inputs = np.zeros((min(memory_length, batch_size), env_dim))
 
         # Placeholder for target q-values after applying model to state input
-        targets = np.zeros((inputs.shape[0], number_of_actions))
+        num_inputs = inputs.shape[0]
+        targets = np.zeros((num_inputs, number_of_actions))
 
         # For each element in the batch of size batch_size randomly select an experience
         # save it into inputs, and calculate the q-values for state to be saved into
         # targets.
-        for i, index in enumerate(
-            np.random.choice(memory_length, size=inputs.shape[0], replace=False)
-        ):
-            # Select random experience
-            previous_state, action_t, reward, current_state = self.memory[index][0]
-            game_over = self.memory[index][1]
+        ids = np.random.choice(memory_length, size=num_inputs, replace=False)
 
-            inputs[i] = previous_state
+        # Select random experience
+        sars = list(zip(*[self.memory[id_][0] for id_ in ids]))
+        previous_states, action_ts, rewards, current_states = (
+            np.concatenate(e) if isinstance(e[0], np.ndarray) else np.stack(e)
+            for e in sars
+        )
+        game_over = np.stack([self.memory[id_][1] for id_ in ids])
 
-            # Use state to calculate q-values for each action
-            targets[i] = model.predict(previous_state)[0]
+        # Use state to calculate q-values for each action
+        targets = model.predict(previous_states, batch_size=64, verbose=False)
 
-            # Greedily choose maximum q-value
-            Q_sa = np.max(model.predict(current_state)[0])
+        # Greedily choose maximum q-value
+        Q_sa = np.max(model.predict(current_states, batch_size=64, verbose=False), 1)
 
-            # Save into targets
-            # If game_over is True use end reward
-            # If not use current reward + discounted q-value
-            if game_over:
-                targets[i, action_t] = reward
-            else:
-                # reward + gamma * max_a' Q(s', a')
-                # reward is always zero, but is added for generality
-                targets[i, action_t] = reward + self.discount * Q_sa
+        # Save into targets
+        # If game_over is True use end reward
+        # If not use current reward + discounted q-value
+        # reward + gamma * max_a' Q(s', a')
+        # reward is always zero in non terminal state, but is added for generality
+        targets[np.arange(num_inputs), action_ts] = (
+            rewards + self.discount * Q_sa * ~game_over
+        )
 
-        return inputs, targets
+        return previous_states, targets

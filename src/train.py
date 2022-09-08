@@ -46,7 +46,7 @@ def define_model(
 def train_model(
     model: Type[keras.Model],
     epochs: int,
-    experience_replay: int,
+    experience_replay: object,
     epsilon: int,
     batch_size: int,
 ) -> Type[keras.Model]:
@@ -68,27 +68,29 @@ def train_model(
 
             # Decide if next action is explorative or exploits current policy
             if np.random.rand() <= epsilon:
-                action = np.random.randint(0, num_actions, size=1)
+                action = np.random.randint(0, num_actions, size=1)[0]
             else:
-                q = model.predict(previous_state)
+                q = model.predict(previous_state, verbose=False)
                 action = np.argmax(q[0])
 
             # Apply action and save rewards and new state
             current_state, reward, game_over = env.act(action)
-            if reward == 1:
-                win_count += 1
+            win_count += reward == 1
+
+            # print(action, env.state, reward)
 
             # Store experience in experience replay
             experience_replay.add_experience(
-                [previous_state, action, reward, current_state], game_over
+                [previous_state, int(action), reward, current_state], game_over
             )
 
             # Adapt model
             inputs, targets = experience_replay.get_batch(model, batch_size=batch_size)
 
             loss += model.train_on_batch(inputs, targets)
+
         logging.info(
-            f"Epochs {np.round(epoch, 3)}/{epochs - 1} | Loss {np.round(loss, 4)} | Win count {win_count}"
+            f"Epochs {np.round(epoch+1, 3)}/{epochs} | Loss {np.round(loss, 4)} | Win count {win_count}/{np.round(epoch+1, 3)}"
         )
     return model
 
@@ -109,13 +111,14 @@ if __name__ == "__main__":
     num_actions = 3
 
     # Define environment variable parameters. Smaller parameters values are adopted to reduce training time.
-    epochs = int(os.environ.get("TRAIN_EPOCHS", 5))
-    epsilon = float(os.environ.get("TRAIN_EPSILON", 0.1))
+    epochs = int(os.environ.get("TRAIN_EPOCHS", 1000))
+    epsilon = float(os.environ.get("TRAIN_EPSILON", 2e-4))
     max_memory = int(os.environ.get("TRAIN_MAX_MEMORY", 2_000))
     hidden_size = int(os.environ.get("TRAIN_HIDDEN_SIZE", 100))
     hidden_layers = int(os.environ.get("TRAIN_HIDDEN_LAYERS", 2))
     batch_size = int(os.environ.get("TRAIN_BATCH_SIZE", 64))
     grid_size = int(os.environ.get("TRAIN_GRID_SIZE", 10))
+    discount = os.environ.get("DISCOUNT", 1.0)
     warm_start_model = os.environ.get("TRAIN_WARM_START_PATH")
 
     # Define Model
@@ -130,7 +133,7 @@ if __name__ == "__main__":
     env = Catch(grid_size)
 
     # Initialize experience replay object
-    exp_replay = ExperienceReplay(max_memory=max_memory)
+    exp_replay = ExperienceReplay(max_memory=max_memory, discount=discount)
 
     # Train Model
     trained_model = train_model(model, epochs, exp_replay, epsilon, batch_size)
