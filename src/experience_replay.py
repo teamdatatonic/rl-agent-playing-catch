@@ -57,7 +57,7 @@ class ExperienceReplay(object):
             batch_size (int, optional): Batch size of inputs and targets to return. Defaults to 10.
 
         Returns:
-            inputs (np.array), targets (np.array): state inpus to model, q-value from model for given state
+            inputs (np.array), targets (np.array): state inputs to model, q-value from model for given state
         """
         memory_length = len(self.memory)
         number_of_actions = model.output_shape[-1]
