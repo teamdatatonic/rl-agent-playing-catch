@@ -1,0 +1,13 @@
+*/__pycache__
+.vscode
+*.swp
+.DS_Store
+*/.DS_Store
+
+# Ignore all model artefacts
+gif/
+image/
+model/
+
+.envrc
+catch.gif
