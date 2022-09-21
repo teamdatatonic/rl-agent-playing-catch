@@ -1,7 +1,7 @@
 # Reinforcement Learning Catch Example
 This is the repository for the reinforcement learning catch example. In this project, we used RL to train an agent controlling a basket to catch a piece of falling fruit. We define an environment entirely using matplotlib. 
 
-Click [here](datatonic.com/insights/reinforcement-learning-training-rl-agent-tutorial) to read more about the theory behind the RL agent and the learning process.
+Click [here](https://datatonic.com/insights/reinforcement-learning-training-rl-agent-tutorial) to read more about the theory behind the RL agent and the learning process.
 # Getting Started
 ## Pre-requisites
 * Python 3.9.6
