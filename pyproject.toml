@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "rl-catch-example"
+version = "0.1.0"
+description = "Catch Game Deep RL example"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+numpy = "^1.23.1"
+scipy = "^1.8.0"
+matplotlib = "^3.5.2"
+tensorflow = "^2.9.1"
+keras = "^2.9.0"
+imageio = "^2.21.0"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
